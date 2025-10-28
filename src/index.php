@@ -3,22 +3,38 @@ require 'controllers/indexCtrl.php';
 $title = "Connextion";
 $link = '<link rel="stylesheet" href="assets/css/index.css">';
 require 'ui/head.php';
+
 ?>
 
 <body>
 	<h1>Création</h1>
-	<form>
+	<form method="POST">
 		<label for="firstname">Prénom</label>
-		<input id="firstname" type="text" name="firstname" placeholder="Prénom" required>
+		<input id="firstname" type="text" name="firstname" placeholder="Prénom" value="<?= !empty($_POST['firstname']) ? $_POST['firstname'] : '' ?>" required>
+		<?php if (!empty($error) && !empty($error['firstname'])) { ?>
+			<small><?= $error['firstname'] ?></small>
+		<?php } ?>
 		<label for="lastname">Nom</label>
-		<input id="lastname" type="text" name="lastname" placeholder="Nom" required>
+		<input id="lastname" type="text" name="lastname" placeholder="Nom" value="<?= !empty($_POST['lastname']) ? $_POST['lastname'] : '' ?>" required>
+		<?php if (!empty($error) && !empty($error['lastname'])) { ?>
+			<small><?= $error['lastname'] ?></small>
+		<?php } ?>
 		<label for="email">Email</label>
-		<input id="email" type="email" name="email" placeholder="Email" required>
+		<input id="email" type="email" name="email" placeholder="Email" value="<?= !empty($_POST['email']) ? $_POST['email'] : '' ?>" required>
+		<?php if (!empty($error) && !empty($error['email'])) { ?>
+			<small><?= $error['email'] ?></small>
+		<?php } ?>
 		<label for="password">Mot de passe</label>
 		<input id="password" type="password" name="password" placeholder="Mot de passe" required>
+		<?php if (!empty($error) && !empty($error['password'])) { ?>
+			<small><?= $error['password'] ?></small>
+		<?php } ?>
 		<label for="password">Confirmation du mot de passe</label>
 		<input id="confirmPassword" type="password" name="confirmPassword" placeholder="Mot de passe" required>
-		<button type="submit">Créer un compte</button>
+		<?php if (!empty($error) && !empty($error['confirmPassword'])) { ?>
+			<small><?= $error['confirmPassword'] ?></small>
+		<?php } ?>
+		<button name="register" type="submit">Créer un compte</button>
 	</form>
 
 	<h1>Connexion</h1>
@@ -27,7 +43,7 @@ require 'ui/head.php';
 		<input id="email" type="email" name="login_email" placeholder="Email" required>
 		<label for="password">Mot de passe</label>
 		<input id="password" type="password" name="login_password" placeholder="Mot de passe" required>
-		<button type="submit">Créer un compte</button>
+		<button name="login" type="submit">Créer un compte</button>
 	</form>
 </body>
 
