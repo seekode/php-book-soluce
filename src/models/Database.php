@@ -1,15 +1,25 @@
 <?php
 
-/**
- * Fonction permettant de se connecter à la base de données
- * @return PDO
- */
-function connect()
+namespace Models;
+
+use Exception;
+use PDO;
+
+class Database
 {
-	try {
-		return new PDO('mysql:host=mysql-con;dbname=tp;charset=utf8', 'root', 'pw');
-	} catch (Exception $e) {
-		// Si la tentative échoue on termine le script courant avec die en affichant un message d'érreur récupérer dans l'exception $e
-		die('Erreur : ' . $e->getMessage());
+	protected $db;
+
+	public function __construct()
+	{
+		try {
+			$this->db = new PDO('mysql:host=mysql-con;dbname=tp;charset=utf8', 'root', 'pw');
+		} catch (Exception $e) {
+			die('Erreur : ' . $e->getMessage());
+		}
+	}
+
+	public function __destruct()
+	{
+		$this->db = NULL;
 	}
 }
